@@ -6,9 +6,9 @@ import com.cartao.cartao.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cidades")
@@ -20,6 +20,11 @@ public class CidadeController {
     @GetMapping
     public Page<Cidade> listaCidades(Pageable pageable) {
         return cidadeService.listaCidades(pageable);
+    }
+    @PostMapping
+    public void cadastrarCidade(@RequestBody Cidade cidade) {
+        cidadeService.inserirCidade(cidade);
+
     }
 
 }
