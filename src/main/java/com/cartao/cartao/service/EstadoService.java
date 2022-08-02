@@ -17,7 +17,7 @@ public class EstadoService {
     public Page<Estado> listarEstados(Pageable pageable) {
         return estadoRepository.findAll(pageable);
     }
-    public Estado inserirEstado(@RequestBody Estado estado) throws Exception {
+    public Estado inserirEstado(Estado estado) throws Exception {
         for(int i = 0; i < estado.getSigla().length(); i++){
             char sigla = estado.getSigla().charAt(i);
             if(estado.getNome() == null || estado.getSigla() == null || estado.getSigla() == "" || Character.isDigit(sigla)) {

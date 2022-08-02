@@ -28,19 +28,18 @@ public class EnderecoService {
     }
 
     public Endereco salvarEndereco(Endereco endereco) throws Exception {
-            //Remover o for
-            List<Cidade> cidades = cidadeRepository.findAll();
-            for (Cidade in: cidades) {
-                in.getId();
-                if (endereco == null || cidades.isEmpty() || in.getId() == null) {
-                    throw new Exception();
-                }
+
+        List<Cidade> cidades = cidadeRepository.findAll();
+
+            if (endereco == null || cidades.isEmpty()) {
+                throw new Exception();
             }
-        try {
-            return enderecoRepository.save(endereco);
-        }
-        catch (Exception e) {
-            throw new Exception(e.getMessage());
-        }
+
+            try {
+                return enderecoRepository.save(endereco);
+            }
+            catch (Exception e) {
+                throw new Exception(e.getMessage());
+            }
     }
 }

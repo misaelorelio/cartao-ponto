@@ -29,8 +29,16 @@ public class CidadeController {
         catch (Exception e) {
             throw new Exception(e.getMessage());
         }
+    }
 
-
+    @PutMapping
+    public Cidade alterarCidade(@RequestBody Cidade cidade) throws Exception {
+        Cidade cd = cidadeService.alterarCidade(cidade);
+        return cd;
+    }
+    @DeleteMapping("/{id}")
+    public void deletarCidade(@PathVariable("id") Integer id) {
+        cidadeService.deletarCidade(id);
     }
 
 }

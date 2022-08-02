@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
@@ -25,20 +28,49 @@ public class CidadeService {
         return cidadeRepository.findAll(pageable);
     }
 
-    public Cidade salvarCidade(@RequestBody Cidade cidade) throws Exception {
+    public Cidade salvarCidade(Cidade cidade) throws Exception {
         try {
-            //Remover o for
+
             List<Estado> estados = estadoRepository.findAll();
-            for (Estado in: estados) {
-                in.getId();
-                if (cidade == null || estados.isEmpty() || cidade.getEstado().getId() != in.getId()) {
+
+                if (cidade == null || estados.isEmpty()) {
                     throw new Exception();
                 }
-            }
+
                 return cidadeRepository.save(cidade);
         }
         catch (Exception e) {
             throw new Exception(e.getMessage());
+        }
+    }
+
+    public Cidade alterarCidade(Cidade cidade) throws Exception {
+        try {
+            List<Estado> estados = estadoRepository.findAll();
+
+            if (cidade == null || estados.isEmpty()) {
+                throw new Exception();
+            }
+
+            return cidadeRepository.save(cidade);
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+
+    public void deletarCidade(Integer id) {
+        List<Estado> estados = estadoRepository.findAll();
+        //melhorar essa verificação
+        try {
+            if(id == null || !estados.isEmpty()) {
+                throw new Exception();
+            }
+            cidadeRepository.deleteById(id);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
