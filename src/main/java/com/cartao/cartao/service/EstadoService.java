@@ -31,4 +31,14 @@ public class EstadoService {
            throw new Exception(e.getMessage());
        }
     }
+
+    public Estado alterarEstado(Estado estado) {
+
+        Estado es = estadoRepository.save(estado);
+        return es;
+    }
+
+    public void deletarEstado(Integer id) {
+        estadoRepository.deleteById(id);
+    }
 }

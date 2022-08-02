@@ -32,4 +32,13 @@ public class EstadoController {
         }
 
     }
+    @PutMapping
+    public Estado alterarEstado(@RequestBody Estado estado) {
+        Estado es = estadoService.alterarEstado(estado);
+        return es;
+    }
+    @DeleteMapping("/{id}")
+    public void deletarEstado(@PathVariable("id") Integer id) {
+        estadoService.deletarEstado(id);
+    }
 }
