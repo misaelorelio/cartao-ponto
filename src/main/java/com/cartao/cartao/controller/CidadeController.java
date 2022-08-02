@@ -1,7 +1,6 @@
 package com.cartao.cartao.controller;
 
 import com.cartao.cartao.model.Cidade;
-import com.cartao.cartao.repository.CidadeRepository;
 import com.cartao.cartao.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
