@@ -1,8 +1,10 @@
 package com.cartao.cartao.service;
 
 import com.cartao.cartao.model.Cidade;
+import com.cartao.cartao.model.Endereco;
 import com.cartao.cartao.model.Estado;
 import com.cartao.cartao.repository.CidadeRepository;
+import com.cartao.cartao.repository.EnderecoRepository;
 import com.cartao.cartao.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,29 +15,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @Service
-public class CidadeService {
+public class EnderecoService {
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     @Autowired
     private CidadeRepository cidadeRepository;
 
-    @Autowired
-    private EstadoRepository estadoRepository;
-
-    public Page<Cidade> listarCidades(Pageable pageable) {
-        return cidadeRepository.findAll(pageable);
+    public Page<Endereco> listarEnderecos(Pageable pageable) {
+        return enderecoRepository.findAll(pageable);
     }
 
-    public Cidade salvarCidade(@RequestBody Cidade cidade) throws Exception {
-        try {
+    public Endereco salvarEndereco(Endereco endereco) throws Exception {
             //Remover o for
-            List<Estado> estados = estadoRepository.findAll();
-            for (Estado in: estados) {
+            List<Cidade> cidades = cidadeRepository.findAll();
+            for (Cidade in: cidades) {
                 in.getId();
-                if (cidade == null || estados.isEmpty() || cidade.getEstado().getId() != in.getId()) {
+                if (endereco == null || cidades.isEmpty() || in.getId() == null) {
                     throw new Exception();
                 }
             }
-                return cidadeRepository.save(cidade);
+        try {
+            return enderecoRepository.save(endereco);
         }
         catch (Exception e) {
             throw new Exception(e.getMessage());
