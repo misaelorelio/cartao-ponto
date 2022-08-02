@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,16 +31,13 @@ public class EnderecoService {
     public Endereco salvarEndereco(Endereco endereco) throws Exception {
 
         List<Cidade> cidades = cidadeRepository.findAll();
-
-            if (endereco == null || cidades.isEmpty()) {
-                throw new Exception();
+            for (Cidade c: cidades) {
+                c.getId();
+                var ids = endereco.getCidade().getId().compareTo(c.getId());
+                if (endereco == null || cidades.isEmpty() || ids > 0) {
+                    throw new Exception();
+                }
             }
-
-            try {
-                return enderecoRepository.save(endereco);
-            }
-            catch (Exception e) {
-                throw new Exception(e.getMessage());
-            }
+            return enderecoRepository.save(endereco);
     }
 }

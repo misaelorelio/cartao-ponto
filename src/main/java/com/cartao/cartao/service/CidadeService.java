@@ -30,7 +30,6 @@ public class CidadeService {
 
     public Cidade salvarCidade(Cidade cidade) throws Exception {
         try {
-
             List<Estado> estados = estadoRepository.findAll();
 
                 if (cidade == null || estados.isEmpty()) {
@@ -51,7 +50,6 @@ public class CidadeService {
             if (cidade == null || estados.isEmpty()) {
                 throw new Exception();
             }
-
             return cidadeRepository.save(cidade);
         }
         catch (Exception e) {
