@@ -17,12 +17,9 @@ public class EstadoService {
 
     public Estado inserirEstado(@RequestBody Estado estado) throws Exception {
        try {
-           if(estado == null) {
-               ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                       .body("Erro");
+           if(estado.getNome() == null || estado.getSigla() == null || estado.getSigla() == "") {
+               throw new Exception();
            }
-           ResponseEntity.status(HttpStatus.CREATED)
-                   .body("Sucesso");
            return estadoRepository.save(estado);
        }
        catch (Exception e) {

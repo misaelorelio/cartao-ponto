@@ -18,13 +18,13 @@ public class CidadeController {
     private CidadeService cidadeService;
 
     @GetMapping
-    public Page<Cidade> listaCidades(Pageable pageable) {
-        return cidadeService.listaCidades(pageable);
+    public Page<Cidade> listarCidades(Pageable pageable) {
+        return cidadeService.listarCidades(pageable);
     }
     @PostMapping
-    public ResponseEntity<String> cadastrarCidade(@RequestBody Cidade cidade) throws Exception {
+    public ResponseEntity<String> salvarCidade(@RequestBody Cidade cidade) throws Exception {
         try {
-            cidadeService.inserirCidade(cidade);
+            cidadeService.salvarCidade(cidade);
             return ResponseEntity.status(HttpStatus.CREATED).body("Cadastrado com sucesso");
         }
         catch (Exception e) {

@@ -23,11 +23,11 @@ public class CidadeService {
     @Autowired
     private EstadoRepository estadoRepository;
 
-    public Page<Cidade> listaCidades(Pageable pageable) {
+    public Page<Cidade> listarCidades(Pageable pageable) {
         return cidadeRepository.findAll(pageable);
     }
 
-    public Cidade inserirCidade(@RequestBody Cidade cidade) throws Exception {
+    public Cidade salvarCidade(@RequestBody Cidade cidade) throws Exception {
         try {
             List<Estado> estados = estadoRepository.findAll();
             for (Estado in: estados) {
@@ -36,11 +36,9 @@ public class CidadeService {
                     throw new Exception();
                 }
             }
-
                 return cidadeRepository.save(cidade);
-
         }
-        catch (Exception e){
+        catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
