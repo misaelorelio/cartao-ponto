@@ -22,8 +22,15 @@ public class CidadeController {
         return cidadeService.listaCidades(pageable);
     }
     @PostMapping
-    public void cadastrarCidade(@RequestBody Cidade cidade) {
-        cidadeService.inserirCidade(cidade);
+    public ResponseEntity<String> cadastrarCidade(@RequestBody Cidade cidade) throws Exception {
+        try {
+            cidadeService.inserirCidade(cidade);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Cadastrado com sucesso");
+        }
+        catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
 
     }
 
