@@ -40,4 +40,14 @@ public class EnderecoService {
             }
             return enderecoRepository.save(endereco);
     }
+
+    public Endereco alterar(Endereco endereco) throws Exception {
+        try {
+            Endereco end = enderecoRepository.save(endereco);
+            return end;
+        }
+        catch (Exception e) {
+            throw new Exception();
+        }
+    }
 }

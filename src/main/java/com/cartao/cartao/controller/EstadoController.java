@@ -37,8 +37,4 @@ public class EstadoController {
         Estado es = estadoService.alterarEstado(estado);
         return es;
     }
-    @DeleteMapping("/{id}")
-    public void deletarEstado(@PathVariable("id") Integer id) {
-        estadoService.deletarEstado(id);
-    }
 }

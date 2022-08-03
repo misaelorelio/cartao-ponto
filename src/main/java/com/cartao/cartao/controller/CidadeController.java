@@ -36,9 +36,5 @@ public class CidadeController {
         Cidade cd = cidadeService.alterarCidade(cidade);
         return cd;
     }
-    @DeleteMapping("/{id}")
-    public void deletarCidade(@PathVariable("id") Integer id) {
-        cidadeService.deletarCidade(id);
-    }
 
 }

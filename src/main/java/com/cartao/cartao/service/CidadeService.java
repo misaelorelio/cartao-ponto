@@ -56,19 +56,4 @@ public class CidadeService {
             throw new Exception(e.getMessage());
         }
     }
-
-
-    public void deletarCidade(Integer id) {
-        List<Estado> estados = estadoRepository.findAll();
-        //melhorar essa verificação
-        try {
-            if(id == null || !estados.isEmpty()) {
-                throw new Exception();
-            }
-            cidadeRepository.deleteById(id);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

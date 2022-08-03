@@ -16,6 +16,8 @@ public class Endereco {
     private String cep;
     @Column(name="numero")
     private Integer numero;
+    @Column(name="status")
+    private Boolean status;
     @ManyToOne
     @JoinColumn(name = "cidade_id")
     private Cidade cidade;
