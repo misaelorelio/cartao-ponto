@@ -25,7 +25,7 @@ public class EnderecoService {
     private CidadeRepository cidadeRepository;
 
     public Page<Endereco> listarEnderecos(Pageable pageable) {
-        return enderecoRepository.findAll(pageable);
+        return enderecoRepository.todosDisponiveis(pageable);
     }
 
     public Endereco salvarEndereco(Endereco endereco) throws Exception {
@@ -42,12 +42,10 @@ public class EnderecoService {
     }
 
     public Endereco alterar(Endereco endereco) throws Exception {
-        try {
-            Endereco end = enderecoRepository.save(endereco);
-            return end;
+        if(endereco.getId() == null) {
+            throw new Exception("Endereço não encontrado com o id: " + endereco.getId());
         }
-        catch (Exception e) {
-            throw new Exception();
-        }
+        Endereco end = enderecoRepository.save(endereco);
+        return end;
     }
 }
