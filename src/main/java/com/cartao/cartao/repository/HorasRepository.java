@@ -15,6 +15,6 @@ public interface HorasRepository extends JpaRepository<Horas, Integer> {
     Page<Horas> listarHoras(Pageable pageable);
 
     @Query(value = "select h from Horas h where h.id =?1")
-    Horas umRegistro(Integer id);
+    Horas ultimoRegistro(Integer id);
 
 }

@@ -30,16 +30,16 @@ public class HorasService {
         String dataFormatada = sdf.format(hora);
         List<Horas> h =horasRepository.findAll();
         var idUltimoRegistro = h.size();
-        var hr = horasRepository.umRegistro(idUltimoRegistro);
+        var ultimoRegistro = horasRepository.ultimoRegistro(idUltimoRegistro);
 
         var t = dataFormatada.split(":");
         if(t != null) {
 
-                if(horas != null && hr.getHoraRegistrada() != t[2]){
-                    if(hr.getTipo() == false) {
+                if(horas != null && ultimoRegistro.getHoraRegistrada() != t[2]){
+                    if(ultimoRegistro.getTipo() == false) {
                         horas.setTipo(true);
                     }
-                    else if( hr.getTipo() == true) {
+                    else if( ultimoRegistro.getTipo() == true) {
                         horas.setTipo(false);
                     }
                 }
