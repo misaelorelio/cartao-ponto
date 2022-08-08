@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class HorasService {
@@ -27,13 +28,27 @@ public class HorasService {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Date hora = Calendar.getInstance().getTime();
         String dataFormatada = sdf.format(hora);
+        List<Horas> h =horasRepository.findAll();
+        var idUltimoRegistro = h.size();
+        var hr = horasRepository.umRegistro(idUltimoRegistro);
+
         var t = dataFormatada.split(":");
-        //Falta tertminar verificação de horas
-        if(horas != null) {
+        if(t != null) {
+
+                if(horas != null && hr.getHoraRegistrada() != t[2]){
+                    if(hr.getTipo() == false) {
+                        horas.setTipo(true);
+                    }
+                    else if( hr.getTipo() == true) {
+                        horas.setTipo(false);
+                    }
+                }
+
             horas.setHoraRegistrada(dataFormatada);
             horas.setDataRegistro(localDate);
             return horasRepository.save(horas);
-        }else {
+        }
+        else {
             throw new Exception();
         }
     }
