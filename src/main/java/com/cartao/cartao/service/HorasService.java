@@ -1,5 +1,6 @@
 package com.cartao.cartao.service;
 
+import com.cartao.cartao.model.Colaborador;
 import com.cartao.cartao.model.Horas;
 import com.cartao.cartao.repository.HorasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +29,36 @@ public class HorasService {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Date hora = Calendar.getInstance().getTime();
         String dataFormatada = sdf.format(hora);
-        List<Horas> h =horasRepository.findAll();
-        var idUltimoRegistro = h.size();
-        var ultimoRegistro = horasRepository.ultimoRegistro(idUltimoRegistro);
 
-        var t = dataFormatada.split(":");
-        if(t != null) {
+        var idUltimoRegistro = horas.getColaborador().getId();
 
-                if(horas != null && ultimoRegistro.getHoraRegistrada() != t[2]){
-                    if(ultimoRegistro.getTipo() == false) {
-                        horas.setTipo(true);
-                    }
-                    else if( ultimoRegistro.getTipo() == true) {
-                        horas.setTipo(false);
-                    }
-                }
+        var dataRegistroPonto = localDate;
+        List<Horas> registrosSalvaosBd = horasRepository.findByDataRegistroAndColaborador(dataRegistroPonto, idUltimoRegistro);
 
+        if(horas == null) {
+            throw new Exception();
+        }
+        else if(registrosSalvaosBd.isEmpty()) {
             horas.setHoraRegistrada(dataFormatada);
             horas.setDataRegistro(localDate);
+            horas.setTipo(true);
             return horasRepository.save(horas);
         }
         else {
-            throw new Exception();
+            for (Horas hr: registrosSalvaosBd) {
+                if(horas.getHoraRegistrada() != hr.getHoraRegistrada()) {
+                    if(hr.getTipo() == false) {
+                               horas.setTipo(true);
+                           }
+                           else if( hr.getTipo() == true) {
+                               horas.setTipo(false);
+                           }
+                }
+
+            }
+            horas.setHoraRegistrada(dataFormatada);
+            horas.setDataRegistro(localDate);
+            return horasRepository.save(horas);
         }
     }
 
