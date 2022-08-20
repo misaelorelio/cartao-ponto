@@ -42,6 +42,7 @@ public class HorasController {
     @DeleteMapping
     public ResponseEntity<String> deletarHoras(@RequestBody Horas horas) throws Exception {
         if(horas != null && horas.getId() != null) {
+            horas.setStatus(false);
             horasService.atualizarHoras(horas);
             return ResponseEntity.status(HttpStatus.OK)
                     .body("Excluido com sucesso");
