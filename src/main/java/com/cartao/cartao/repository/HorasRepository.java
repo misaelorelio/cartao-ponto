@@ -23,6 +23,5 @@ public interface HorasRepository extends JpaRepository<Horas, Integer> {
 
     @Query(value = "select d from Horas d where d.horaRegistrada >?1 and d.colaborador.id = ?2 order by 'asc'")
     List<Horas> findByHoraRegistradaAndColaborador_Id(LocalDateTime data, Integer id);
-    //List<Horas> findByDataRegistroBetweenAndColaborador_Id(LocalDate dataInicial, LocalDate dataFinal, Integer id);
 
 }
