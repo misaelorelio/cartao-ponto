@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -20,8 +21,8 @@ public interface HorasRepository extends JpaRepository<Horas, Integer> {
     @Query(value = "select h from Horas h where h.id =?1")
     Horas ultimoRegistro(Integer id);
 
-    @Query(value = "select d from Horas d where d.dataRegistro =?1 and d.colaborador.id = ?2 order by 'asc'")
-    List<Horas> findByDataRegistroAndColaborador(LocalDate data, Integer id);
-    List<Horas> findByDataRegistroBetweenAndColaborador_Id(LocalDate dataInicial, LocalDate dataFinal, Integer id);
+    @Query(value = "select d from Horas d where d.horaRegistrada >?1 and d.colaborador.id = ?2 order by 'asc'")
+    List<Horas> findByHoraRegistradaAndColaborador_Id(LocalDateTime data, Integer id);
+    //List<Horas> findByDataRegistroBetweenAndColaborador_Id(LocalDate dataInicial, LocalDate dataFinal, Integer id);
 
 }

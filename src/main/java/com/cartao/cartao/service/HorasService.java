@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -20,27 +22,24 @@ public class HorasService {
     @Autowired
     private HorasRepository horasRepository;
 
-    LocalDate localDate = LocalDate.now();
+
     public Page<Horas> listarHorasr(Pageable pageable) {
         return horasRepository.listarHoras(pageable);
     }
 
     public Horas inserirHoras(Horas horas) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        Date hora = Calendar.getInstance().getTime();
-        String dataFormatada = sdf.format(hora);
+        LocalDateTime dataHoraAtual = LocalDateTime.now();
 
         var idUltimoRegistro = horas.getColaborador().getId();
 
-        var dataRegistroPonto = localDate;
-        List<Horas> registrosSalvaosBd = horasRepository.findByDataRegistroAndColaborador(dataRegistroPonto, idUltimoRegistro);
+        var dataRegistroPonto = dataHoraAtual.minusDays(1);
+        List<Horas> registrosSalvaosBd = horasRepository.findByHoraRegistradaAndColaborador_Id(dataRegistroPonto, idUltimoRegistro);
 
         if(horas == null) {
             throw new Exception();
         }
         else if(registrosSalvaosBd.isEmpty()) {
-            horas.setHoraRegistrada(dataFormatada);
-            horas.setDataRegistro(localDate);
+            horas.setHoraRegistrada(dataHoraAtual);
             horas.setTipo(true);
             return horasRepository.save(horas);
         }
@@ -56,8 +55,7 @@ public class HorasService {
                 }
 
             }
-            horas.setHoraRegistrada(dataFormatada);
-            horas.setDataRegistro(localDate);
+            horas.setHoraRegistrada(dataHoraAtual);
             return horasRepository.save(horas);
         }
     }
